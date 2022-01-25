@@ -10,48 +10,41 @@ public class Playercollision : MonoBehaviour
     public Text Timetxt;
 
     //Score
-    int Score;
+    private float Score;
+    public float totalcoins;
 
     //Time
-    public float time;
-    public bool timerisrunning = false;
+    public float timeleft;
+    public int timeremaining;
 
+    private float Timevalue;
 
     // Start is called before the first frame update
     void Start()
     {
-        //scoretxt//
-        Scoretxt.text = "Score: " + Score;
-
-        //timer
-        timerisrunning = true;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (timerisrunning)
+        timeleft -= Time.deltaTime;
+        timeremaining = Mathf.FloorToInt(timeleft % 60);
+        Timetxt.text = "Timer : " + timeremaining.ToString();
+
+        if (Score == totalcoins)
         {
-            if (time > 0)
+            if (timeleft >= Timevalue)
             {
-                time -= Time.deltaTime;
-                DisplayTime(time);
-            }
-            else
-            {
-                SceneManager.LoadScene("GameLose");
+                SceneManager.LoadScene("GameWin");
             }
         }
+        else if(timeleft <= 0)
+        {
+           SceneManager.LoadScene("GameLose");
+        }
     }
-    void DisplayTime(float timeToDisplay)
-    {
-        float minutes = Mathf.FloorToInt(timeToDisplay / 60);
-        float seconds = Mathf.FloorToInt(timeToDisplay % 60);
-
-        Timetxt.text = string.Format("Time: {0:00}:{1:00}", minutes, seconds);
-    }
-
-   
+    
     private void OnTriggerEnter(Collider other)
     {
        //collision with coins
@@ -61,11 +54,6 @@ public class Playercollision : MonoBehaviour
             Score = +Score + 10;
             Scoretxt.text = "Score: " + Score;
             Destroy(other.gameObject);
-
-            if(Score == 100)
-            {
-                SceneManager.LoadScene("GameWin");
-            }
         }
 
         if (other.gameObject.tag == "Water")
