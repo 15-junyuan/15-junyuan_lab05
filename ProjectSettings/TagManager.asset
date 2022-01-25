@@ -5,8 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Fire
-  - Coin
   - Water
+  - Coins
   layers:
   - Default
   - TransparentFX

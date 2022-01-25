@@ -39,7 +39,7 @@ public class Playercollision : MonoBehaviour
             }
             else
             {
-                Debug.Log("end");
+                SceneManager.LoadScene("GameLose");
             }
         }
     }
@@ -51,23 +51,27 @@ public class Playercollision : MonoBehaviour
         Timetxt.text = string.Format("Time: {0:00}:{1:00}", minutes, seconds);
     }
 
-    //collision
-   /* private void OnCollisionEnter(Collision collision)
+   
+    private void OnTriggerEnter(Collider other)
     {
-        //collision with coin
-        if (collision.gameObject.tag == "Coin")
+       //collision with coins
+        if(other.gameObject.tag == "Coins")
         {
-            Debug.Log("Touch");
-            Score =+ Score + 10;
+           
+            Score = +Score + 10;
             Scoretxt.text = "Score: " + Score;
-            Destroy(collision.gameObject);
+            Destroy(other.gameObject);
+
+            if(Score == 100)
+            {
+                SceneManager.LoadScene("GameWin");
+            }
         }
 
-        //collision with water
-        if (collision.gameObject.tag == "Water")
+        if (other.gameObject.tag == "Water")
         {
             SceneManager.LoadScene("GameLose");
         }
-    }*/
-   
+
+    }
 }
