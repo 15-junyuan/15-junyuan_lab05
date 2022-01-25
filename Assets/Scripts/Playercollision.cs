@@ -22,7 +22,7 @@ public class Playercollision : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+       
     }
 
     // Update is called once per frame
@@ -50,7 +50,6 @@ public class Playercollision : MonoBehaviour
        //collision with coins
         if(other.gameObject.tag == "Coins")
         {
-           
             Score = +Score + 10;
             Scoretxt.text = "Score: " + Score;
             Destroy(other.gameObject);
