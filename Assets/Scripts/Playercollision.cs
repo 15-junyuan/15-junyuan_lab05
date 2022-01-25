@@ -9,6 +9,7 @@ public class Playercollision : MonoBehaviour
     public Text Scoretxt;
     public Text Timetxt;
 
+    public GameObject particle;
     //Score
     private float Score;
     public float totalcoins;
@@ -17,7 +18,7 @@ public class Playercollision : MonoBehaviour
     public float timeleft;
     public int timeremaining;
 
-    private float Timevalue;
+    private float Timevalue = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -50,6 +51,7 @@ public class Playercollision : MonoBehaviour
        //collision with coins
         if(other.gameObject.tag == "Coins")
         {
+            particle = Instantiate(particle, transform.position, Quaternion.identity);
             Score = +Score + 10;
             Scoretxt.text = "Score: " + Score;
             Destroy(other.gameObject);
